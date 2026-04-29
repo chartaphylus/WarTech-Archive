@@ -14,8 +14,8 @@ export default function Footer() {
             </span>
           </div>
 
-          <p className="text-[10px] text-steel-600 tracking-wider text-center">
-            For educational purposes only · Data sourced from public records
+          <p className="text-[10px] text-steel-600 tracking-wider text-center max-w-sm">
+            Website ini dibuat untuk tujuan edukasi dan mengenalkan teknologi perang di seluruh dunia · Data sourced from public records
           </p>
 
           <div className="flex items-center gap-4">

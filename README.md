@@ -61,6 +61,6 @@ To initialize the archive locally, follow these protocols:
 ---
 
 ### 🔓 Access Clearance
-This terminal is for educational and historical archiving purposes. Maintain operational security.
+Website ini dikembangkan untuk tujuan edukasi, dokumentasi sejarah, dan pengenalan inovasi teknologi peperangan di seluruh dunia. Maintain operational security.
 
 **CLASSIFIED // WARTECH ARCHIVE SYSTEM**
