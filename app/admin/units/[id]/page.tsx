@@ -307,6 +307,42 @@ export default function EditUnitPage() {
                 </div>
               ))}
             </div>
+
+            <div className="space-y-4 pt-6 border-t border-slate-800">
+              <div className="flex justify-between items-center">
+                <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Teknologi & Fitur</label>
+                <button 
+                  type="button"
+                  onClick={() => setTechs([...techs, ''])}
+                  className="text-[10px] font-bold text-neon-green hover:underline uppercase"
+                >
+                  + Tambah
+                </button>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {techs.map((tech, i) => (
+                  <div key={i} className="flex items-center gap-2 bg-slate-950 border border-slate-800 rounded-lg px-3 py-1">
+                    <input 
+                      placeholder="Teknologi" 
+                      className="bg-transparent border-none text-xs focus:outline-none text-neon-green/80 w-32"
+                      value={tech}
+                      onChange={(e) => {
+                        const newTechs = [...techs];
+                        newTechs[i] = e.target.value;
+                        setTechs(newTechs);
+                      }}
+                    />
+                    <button 
+                      type="button"
+                      onClick={() => setTechs(techs.filter((_, idx) => idx !== i))}
+                      className="text-red-400 hover:text-red-300"
+                    >
+                      <Trash2 className="w-3 h-3" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
@@ -369,13 +405,34 @@ export default function EditUnitPage() {
                 </select>
               </div>
               <div className="space-y-2">
-                <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Asal Negara</label>
-                <input 
-                  type="text" 
-                  value={formData.country}
-                  onChange={(e) => setFormData({...formData, country: e.target.value})}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-lg py-3 px-4 text-sm text-white focus:border-neon-green/50 outline-none"
-                />
+                <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Asal Negara & Kode</label>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <input 
+                    type="text" 
+                    value={formData.country}
+                    onChange={(e) => setFormData({...formData, country: e.target.value})}
+                    className="w-full bg-slate-950 border border-slate-800 rounded-lg py-3 px-4 text-sm text-white focus:border-neon-green/50 outline-none"
+                  />
+                  <select
+                    value={formData.country_code}
+                    onChange={(e) => setFormData({...formData, country_code: e.target.value})}
+                    className="w-full bg-slate-950 border border-slate-800 rounded-lg py-3 px-4 text-sm text-white focus:border-neon-green/50 outline-none"
+                  >
+                    <option value="">Pilih Kode (Bendera)</option>
+                    <option value="us">USA (us)</option>
+                    <option value="ru">Russia (ru)</option>
+                    <option value="de">Germany (de)</option>
+                    <option value="id">Indonesia (id)</option>
+                    <option value="gb">United Kingdom (gb)</option>
+                    <option value="fr">France (fr)</option>
+                    <option value="cn">China (cn)</option>
+                    <option value="jp">Japan (jp)</option>
+                    <option value="kr">South Korea (kr)</option>
+                    <option value="il">Israel (il)</option>
+                    <option value="ua">Ukraine (ua)</option>
+                    <option value="tr">Turkey (tr)</option>
+                  </select>
+                </div>
               </div>
               <div className="space-y-2">
                 <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Tahun Aktif</label>

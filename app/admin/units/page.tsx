@@ -66,7 +66,8 @@ export default function AdminUnitsPage() {
 
   const filteredUnits = units.filter(unit => {
     const matchesSearch = unit.name.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = filterCategory === 'all' || unit.category === filterCategory;
+    const matchesCategory = filterCategory === 'all' || 
+      (unit.category && unit.category.toLowerCase().includes(filterCategory.toLowerCase()));
     return matchesSearch && matchesCategory;
   });
 

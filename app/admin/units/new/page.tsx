@@ -231,6 +231,42 @@ export default function NewUnitPage() {
                 </div>
               ))}
             </div>
+
+            <div className="space-y-4 pt-6 border-t border-slate-800">
+              <div className="flex justify-between items-center">
+                <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Teknologi & Fitur</label>
+                <button 
+                  type="button"
+                  onClick={() => setTechs([...techs, ''])}
+                  className="text-[10px] font-bold text-neon-green hover:underline uppercase"
+                >
+                  + Tambah Fitur
+                </button>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {techs.map((tech, i) => (
+                  <div key={i} className="flex items-center gap-2 bg-slate-900 border border-slate-700 rounded-lg px-3 py-1">
+                    <input 
+                      placeholder="Nama Teknologi" 
+                      className="bg-transparent border-none text-xs focus:outline-none text-neon-green/80 w-32"
+                      value={tech}
+                      onChange={(e) => {
+                        const newTechs = [...techs];
+                        newTechs[i] = e.target.value;
+                        setTechs(newTechs);
+                      }}
+                    />
+                    <button 
+                      type="button"
+                      onClick={() => setTechs(techs.filter((_, idx) => idx !== i))}
+                      className="text-red-400 hover:text-red-300"
+                    >
+                      <Trash2 className="w-3 h-3" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
@@ -265,26 +301,45 @@ export default function NewUnitPage() {
                   className="w-full bg-slate-900 border border-slate-700 rounded-lg py-2.5 px-4 text-sm focus:border-neon-green/50 outline-none"
                 />
               </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Negara</label>
+              <div className="space-y-2">
+                <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Asal Negara</label>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   <input 
                     type="text" 
                     value={formData.country}
                     onChange={(e) => setFormData({...formData, country: e.target.value})}
-                    placeholder="ex: Jerman"
+                    placeholder="Nama Negara (ex: Jerman)"
                     className="w-full bg-slate-900 border border-slate-700 rounded-lg py-2.5 px-4 text-sm focus:border-neon-green/50 outline-none"
                   />
+                  <select
+                    value={formData.country_code}
+                    onChange={(e) => setFormData({...formData, country_code: e.target.value})}
+                    className="w-full bg-slate-900 border border-slate-700 rounded-lg py-2.5 px-4 text-sm focus:border-neon-green/50 outline-none text-slate-300"
+                  >
+                    <option value="">Pilih Kode (Bendera)</option>
+                    <option value="us">USA (us)</option>
+                    <option value="ru">Russia (ru)</option>
+                    <option value="de">Germany (de)</option>
+                    <option value="id">Indonesia (id)</option>
+                    <option value="gb">United Kingdom (gb)</option>
+                    <option value="fr">France (fr)</option>
+                    <option value="cn">China (cn)</option>
+                    <option value="jp">Japan (jp)</option>
+                    <option value="kr">South Korea (kr)</option>
+                    <option value="il">Israel (il)</option>
+                    <option value="ua">Ukraine (ua)</option>
+                    <option value="tr">Turkey (tr)</option>
+                  </select>
                 </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Tahun</label>
-                  <input 
-                    type="number" 
-                    value={formData.year}
-                    onChange={(e) => setFormData({...formData, year: parseInt(e.target.value)})}
-                    className="w-full bg-slate-900 border border-slate-700 rounded-lg py-2.5 px-4 text-sm focus:border-neon-green/50 outline-none"
-                  />
-                </div>
+              </div>
+              <div className="space-y-2">
+                <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Tahun Aktif</label>
+                <input 
+                  type="number" 
+                  value={formData.year}
+                  onChange={(e) => setFormData({...formData, year: parseInt(e.target.value)})}
+                  className="w-full bg-slate-900 border border-slate-700 rounded-lg py-2.5 px-4 text-sm focus:border-neon-green/50 outline-none"
+                />
               </div>
             </div>
           </div>

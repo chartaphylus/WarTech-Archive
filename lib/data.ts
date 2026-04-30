@@ -5,7 +5,7 @@ export async function fetchUnitsByMainCategory(category: string): Promise<Milita
   const { data, error } = await supabase
     .from('units')
     .select('*, specifications(*), technologies(*)')
-    .eq('category', category)
+    .ilike('category', `%${category}%`) // Case-insensitive and handles 'tank' vs 'tanks'
     .order('created_at', { ascending: false });
 
   if (error) {
