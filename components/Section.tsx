@@ -18,9 +18,10 @@ interface SectionHeaderProps {
   label?: string;
   title: string;
   subtitle?: string;
+  emoji?: string;
 }
 
-export function SectionHeader({ label, title, subtitle }: SectionHeaderProps) {
+export function SectionHeader({ label, title, subtitle, emoji }: SectionHeaderProps) {
   return (
     <div className="mb-12">
       {label && (
@@ -29,6 +30,7 @@ export function SectionHeader({ label, title, subtitle }: SectionHeaderProps) {
         </p>
       )}
       <h2 className="text-3xl md:text-4xl font-black text-white uppercase tracking-tight leading-tight">
+        {emoji && <span className="mr-2">{emoji}</span>}
         {title}
       </h2>
       {subtitle && (
