@@ -400,7 +400,7 @@ export default function EditUnitPage() {
                   className="w-full bg-slate-950 border border-slate-800 rounded-lg py-3 px-4 text-sm text-white focus:border-neon-green/50 outline-none"
                 >
                   <option value="tank">Tanks</option>
-                  <option value="sniper">Snipers</option>
+                  <option value="gun">Guns</option>
                   <option value="warship">Warships</option>
                 </select>
               </div>

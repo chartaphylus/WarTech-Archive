@@ -7,13 +7,13 @@ import Link from 'next/link';
 import { 
   LayoutDashboard, 
   Database, 
-  BarChart3, 
   Settings, 
   LogOut, 
   Shield, 
   Menu, 
   X,
-  Layout
+  Layout,
+  BookOpen
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { showToast } from '@/components/Toast';
@@ -44,6 +44,7 @@ export default function AdminLayout({
   const navItems = [
     { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
     { name: 'Unit Militer', href: '/admin/units', icon: Database },
+    { name: 'Perang Dunia', href: '/admin/world-wars', icon: BookOpen },
     { name: 'Landing Page', href: '/admin/site-config', icon: Layout },
     { name: 'Pengaturan', href: '/admin/settings', icon: Settings },
   ];

@@ -106,7 +106,7 @@ export default function AdminUnitsPage() {
           >
             <option value="all">Semua Kategori</option>
             <option value="tank">Tanks</option>
-            <option value="sniper">Snipers</option>
+            <option value="gun">Guns</option>
             <option value="warship">Warships</option>
           </select>
           <button className="p-2 border border-slate-700 rounded-lg hover:bg-slate-800 transition-colors text-slate-400">

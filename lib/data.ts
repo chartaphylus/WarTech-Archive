@@ -1,11 +1,68 @@
 import { supabase } from './supabase';
 import { MilitaryUnit } from '@/types/military';
 
+// ── World War Types ──────────────────────────────────────────────────────────
+
+export interface WorldWarEvent {
+  id: string;
+  war: 'ww1' | 'ww2';
+  title: string;
+  event_date: string | null;
+  year: number;
+  description: string;
+  key_figures: string | null;
+  nations: string | null;
+  event_type: string;
+  image_url: string | null;
+  sort_order: number;
+  created_at: string;
+  updated_at: string;
+}
+
+// ── World War Queries ────────────────────────────────────────────────────────
+
+export async function fetchWorldWarEvents(war?: 'ww1' | 'ww2'): Promise<WorldWarEvent[]> {
+  let query = supabase
+    .from('world_war_events')
+    .select('*')
+    .order('sort_order', { ascending: true });
+
+  if (war) {
+    query = query.eq('war', war);
+  }
+
+  const { data, error } = await query;
+
+  if (error) {
+    console.error('Error fetching world war events:', error);
+    return [];
+  }
+
+  return data || [];
+}
+
+export async function fetchWorldWarEventById(id: string): Promise<WorldWarEvent | null> {
+  const { data, error } = await supabase
+    .from('world_war_events')
+    .select('*')
+    .eq('id', id)
+    .single();
+
+  if (error || !data) {
+    console.error('Error fetching world war event:', error);
+    return null;
+  }
+
+  return data;
+}
+
+// ── Unit Queries ─────────────────────────────────────────────────────────────
+
 export async function fetchUnitsByMainCategory(category: string): Promise<MilitaryUnit[]> {
   const { data, error } = await supabase
     .from('units')
     .select('*, specifications(*), technologies(*)')
-    .ilike('category', `%${category}%`) // Case-insensitive and handles 'tank' vs 'tanks'
+    .ilike('category', `%${category}%`) 
     .order('created_at', { ascending: false });
 
   if (error) {
@@ -13,7 +70,6 @@ export async function fetchUnitsByMainCategory(category: string): Promise<Milita
     return [];
   }
 
-  // Transform to match the MilitaryUnit type if necessary
   return (data || []).map(transformUnit);
 }
 
@@ -30,21 +86,6 @@ export async function fetchUnitBySlug(slug: string): Promise<MilitaryUnit | null
   }
 
   return transformUnit(data);
-}
-
-export async function fetchFeaturedUnits(): Promise<MilitaryUnit[]> {
-  const { data, error } = await supabase
-    .from('units')
-    .select('*, specifications(*), technologies(*)')
-    .eq('featured', true)
-    .order('created_at', { ascending: false });
-
-  if (error) {
-    console.error('Error fetching featured units:', error);
-    return [];
-  }
-
-  return (data || []).map(transformUnit);
 }
 
 export async function fetchAllUnits(): Promise<MilitaryUnit[]> {
@@ -77,59 +118,75 @@ export async function searchUnits(query: string): Promise<MilitaryUnit[]> {
   return (data || []).map(transformUnit);
 }
 
+// ── Landing Page Sections ────────────────────────────────────────────────────
+
 export async function fetchLandingPageSections(): Promise<any[]> {
   const { data, error } = await supabase
     .from('site_config')
     .select('*')
-    .in('id', ['home_hero', 'home_tank', 'home_sniper', 'home_warship'])
+    .in('id', ['home_hero', 'home_tank', 'home_gun', 'home_sniper', 'home_warship'])
     .order('id');
 
   if (error || !data || data.length === 0) {
-    console.warn('Using fallback content for landing page sections.');
-    // Hardcoded fallbacks so the page is never blank
-    return [
-      {
-        id: 'home_hero',
-        slug: 'hero',
-        title: 'WarTech Archive',
-        subtitle: 'Exploring Military Technology, History, and Specifications',
-        content: 'Selamat datang di Central Intelligence Terminal. Kami menyajikan arsip mendalam mengenai evolusi persenjataan global — dari kekuatan lapis baja di darat, presisi penembak jitu di perbatasan, hingga dominasi armada tempur di samudra luas.',
-        image_url: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1920&q=80'
-      },
-      {
-        id: 'home_tank',
-        slug: 'tank',
-        title: 'Main Battle Tanks',
-        subtitle: 'Kekuatan Lapis Baja Darat',
-        content: 'Tank tempur utama (MBT) adalah kendaraan tempur lapis baja yang mengisi peran tembakan langsung dan manuver darat modern. Sejarahnya dimulai pada Perang Dunia I dengan kemunculan "Little Willie", namun evolusi sesungguhnya terjadi pada era Perang Dingin hingga saat ini, melahirkan monster lapis baja seperti M1 Abrams dan Leopard 2 yang dilengkapi dengan lapisan baja komposit Chobham, meriam smoothbore 120mm, dan sistem kendali tembakan digital canggih.',
-        image_url: 'https://images.unsplash.com/photo-1610296669228-602fa827fc1f?w=1280&q=80'
-      },
-      {
-        id: 'home_sniper',
-        slug: 'sniper',
-        title: 'Sniper & Precision Rifles',
-        subtitle: 'Seni Presisi Jarak Jauh',
-        content: 'Senjata presisi telah mengubah wajah pertempuran modern. Dari senapan bolt-action tradisional hingga sistem semi-otomatis kaliber .50 anti-materiel, teknologi ini memungkinkan eliminasi target dari jarak lebih dari 2 kilometer. Senjata seperti Barrett M82 dan Accuracy International L115A3 bukan sekadar senapan, melainkan instrumen presisi tinggi yang menggabungkan optik termal, perhitungan balistik komputerisasi, dan teknik manufaktur kedirgantaraan.',
-        image_url: 'https://images.unsplash.com/photo-1595590424283-b8f17842773f?w=1280&q=80'
-      },
-      {
-        id: 'home_warship',
-        slug: 'warship',
-        title: 'Warships & Naval Systems',
-        subtitle: 'Dominasi Armada Lautan',
-        content: 'Armada laut modern adalah simbol kedaulatan dan proyeksi kekuatan global. Kapal induk bertenaga nuklir kelas Nimitz atau Gerald R. Ford merupakan puncak rekayasa manusia, berfungsi sebagai pangkalan udara terapung yang mampu beroperasi selama puluhan tahun tanpa mengisi bahan bakar. Didampingi oleh kapal perusak berpeluru kendali kelas Arleigh Burke dengan sistem radar AEGIS, angkatan laut modern adalah ekosistem teknologi yang paling kompleks di dunia.',
-        image_url: 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=1280&q=80'
-      }
-    ];
+    return getFallbackSections();
   }
 
-  return data.map(item => ({
+  // Prioritize home_gun over home_sniper if both exist
+  const gunConfig = data.find(item => item.id === 'home_gun') || data.find(item => item.id === 'home_sniper');
+  const others = data.filter(item => !['home_gun', 'home_sniper'].includes(item.id));
+  
+  const finalSections = [...others];
+  if (gunConfig) {
+    finalSections.push({ ...gunConfig, slug: 'gun' });
+  }
+
+  return finalSections.map(item => ({
     ...item,
-    slug: item.id.split('_').pop()
+    slug: item.slug || item.id.split('_').pop()
   }));
 }
 
-// Helper to transform Supabase data to our TypeScript type
+// ── Fallback Data ────────────────────────────────────────────────────────────
+
+function getFallbackSections() {
+  return [
+    {
+      id: 'home_hero',
+      slug: 'hero',
+      title: 'WarTech Archive',
+      subtitle: 'Exploring Military Technology, History, and Specifications',
+      content: 'Selamat datang di Central Intelligence Terminal. Kami menyajikan arsip mendalam mengenai evolusi persenjataan global — dari kekuatan lapis baja di darat, presisi Senjata api, hingga dominasi armada tempur di samudra luas.',
+      image_url: ''
+    },
+    {
+      id: 'home_tank',
+      slug: 'tank',
+      title: 'Main Battle Tanks',
+      subtitle: 'Kekuatan Lapis Baja Darat',
+      content: 'Tank tempur utama (MBT) adalah kendaraan tempur lapis baja yang mengisi peran tembakan langsung dan manuver darat modern. Evolusi sesungguhnya terjadi pada era Perang Dingin hingga saat ini, melahirkan monster lapis baja seperti M1 Abrams dan Leopard 2.',
+      image_url: 'https://images.unsplash.com/photo-1610296669228-602fa827fc1f?w=1280&q=80'
+    },
+    {
+      id: 'home_gun',
+      slug: 'gun',
+      title: 'Firearms & Precision Weapons',
+      subtitle: 'Seni Presisi & Teknologi Senjata Api',
+      content: 'Senjata api dan sistem presisi telah mengubah wajah pertempuran modern. Dari senapan serbu modular hingga sistem anti-materiel, teknologi ini memungkinkan eliminasi target dengan akurasi tinggi.',
+      image_url: 'https://images.unsplash.com/photo-1595590424283-b8f17842773f?w=1280&q=80'
+    },
+    {
+      id: 'home_warship',
+      slug: 'warship',
+      title: 'Warships & Naval Systems',
+      subtitle: 'Dominasi Armada Lautan',
+      content: 'Armada laut modern adalah simbol kedaulatan dan proyeksi kekuatan global. Kapal induk bertenaga nuklir merupakan puncak rekayasa manusia.',
+      image_url: 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=1280&q=80'
+    }
+  ];
+}
+
+// ── Transform Helper ─────────────────────────────────────────────────────────
+
 function transformUnit(item: any): MilitaryUnit {
   return {
     id: item.id,

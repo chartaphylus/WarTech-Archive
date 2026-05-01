@@ -5,8 +5,6 @@ import {
   Eye, 
   Database, 
   TrendingUp, 
-  ArrowUpRight, 
-  ArrowDownRight,
   Clock
 } from 'lucide-react';
 import { motion } from 'framer-motion';

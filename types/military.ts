@@ -1,7 +1,7 @@
-export type MainCategory = 'tank' | 'sniper' | 'warship';
+export type MainCategory = 'tank' | 'gun' | 'warship';
 
 export type TankSubcategory = 'main-battle-tank' | 'light-tank' | 'heavy-tank';
-export type SniperSubcategory = 'anti-materiel' | 'designated-marksman' | 'bolt-action';
+export type GunSubcategory = 'anti-materiel' | 'designated-marksman' | 'bolt-action';
 export type WarshipSubcategory =
   | 'aircraft-carrier'
   | 'destroyer'
@@ -9,7 +9,7 @@ export type WarshipSubcategory =
   | 'submarine'
   | 'frigate';
 
-export type Subcategory = TankSubcategory | SniperSubcategory | WarshipSubcategory;
+export type Subcategory = TankSubcategory | GunSubcategory | WarshipSubcategory;
 
 export interface Specification {
   label: string;

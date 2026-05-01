@@ -287,7 +287,7 @@ export default function NewUnitPage() {
                   className="w-full bg-slate-900 border border-slate-700 rounded-lg py-2.5 px-4 text-sm focus:border-neon-green/50 outline-none"
                 >
                   <option value="tank">Tanks</option>
-                  <option value="sniper">Snipers</option>
+                  <option value="gun">Guns</option>
                   <option value="warship">Warships</option>
                 </select>
               </div>

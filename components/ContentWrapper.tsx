@@ -15,7 +15,7 @@ export default function ContentWrapper({ children }: { children: React.ReactNode
   return (
     <>
       <Navbar />
-      <main className="min-h-screen">{children}</main>
+      <main className="relative min-h-screen pb-20 md:pb-0">{children}</main>
       <Footer />
     </>
   );

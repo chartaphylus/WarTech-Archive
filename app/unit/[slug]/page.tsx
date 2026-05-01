@@ -35,7 +35,7 @@ function SpecRow({ spec }: { spec: Specification }) {
 
 const CATEGORY_LABEL: Record<string, string> = {
   tank: 'Tank',
-  sniper: 'Sniper',
+  gun: 'Gun',
   warship: 'Warship',
 };
 
