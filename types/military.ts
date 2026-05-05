@@ -26,6 +26,7 @@ export interface MilitaryUnit {
   countryCode: string;
   year: number;
   image: string;
+  image_url?: string;
   description: string;
   specifications: Specification[];
   technologies: string[];

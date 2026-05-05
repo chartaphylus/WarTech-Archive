@@ -54,7 +54,7 @@ export default async function UnitDetailPage({ params }: PageProps) {
       <div className="relative h-[55vh] min-h-[360px] overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={unit.image || (unit as any).image_url}
+          src={unit.image || unit.image_url}
           alt={unit.name}
           className="absolute inset-0 w-full h-full object-cover"
           referrerPolicy="no-referrer"
