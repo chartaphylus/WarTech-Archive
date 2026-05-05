@@ -100,6 +100,19 @@ export default function EditUnitPage() {
     setImagePreview(previewUrl);
   }
 
+  function handleUrlChange(url: string) {
+    setFormData({ ...formData, image_url: url });
+    if (!selectedFile) {
+      setImagePreview(url);
+    }
+  }
+
+  function clearFile() {
+    setSelectedFile(null);
+    setImagePreview(formData.image_url || oldImageUrl);
+    if (fileInputRef.current) fileInputRef.current.value = '';
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSaving(true);
@@ -381,6 +394,31 @@ export default function EditUnitPage() {
                 accept="image/*"
                 className="hidden"
               />
+
+              <div className="pt-4 border-t border-slate-800 space-y-3">
+                <div className="flex items-center justify-between">
+                  <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Link URL Gambar</label>
+                  {selectedFile && (
+                    <button 
+                      type="button"
+                      onClick={clearFile}
+                      className="text-[9px] font-bold text-red-400 hover:underline uppercase"
+                    >
+                      Batal Upload Baru
+                    </button>
+                  )}
+                </div>
+                <input 
+                  type="text" 
+                  value={formData.image_url}
+                  onChange={(e) => handleUrlChange(e.target.value)}
+                  placeholder="https://example.com/image.jpg"
+                  className="w-full bg-slate-950 border border-slate-800 rounded-lg py-2.5 px-4 text-xs text-white focus:border-neon-green/50 outline-none"
+                />
+                <p className="text-[9px] text-slate-600 uppercase tracking-widest text-center">
+                  Kosongkan jika ingin menghapus gambar
+                </p>
+              </div>
             </div>
           </div>
 

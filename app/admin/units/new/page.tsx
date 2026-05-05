@@ -52,6 +52,19 @@ export default function NewUnitPage() {
     setImagePreview(previewUrl);
   }
 
+  function handleUrlChange(url: string) {
+    setFormData({ ...formData, image_url: url });
+    if (!selectedFile) {
+      setImagePreview(url);
+    }
+  }
+
+  function clearFile() {
+    setSelectedFile(null);
+    setImagePreview(formData.image_url);
+    if (fileInputRef.current) fileInputRef.current.value = '';
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!selectedFile && !formData.image_url) {
@@ -381,6 +394,28 @@ export default function NewUnitPage() {
               <p className="text-[9px] text-slate-500 text-center uppercase tracking-widest">
                 Format: JPG, PNG, WEBP (Max 5MB)
               </p>
+
+              <div className="pt-4 border-t border-slate-800 space-y-3">
+                <div className="flex items-center justify-between">
+                  <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Atau Gunakan Link URL</label>
+                  {selectedFile && (
+                    <button 
+                      type="button"
+                      onClick={clearFile}
+                      className="text-[9px] font-bold text-red-400 hover:underline uppercase"
+                    >
+                      Batal Upload
+                    </button>
+                  )}
+                </div>
+                <input 
+                  type="text" 
+                  value={formData.image_url}
+                  onChange={(e) => handleUrlChange(e.target.value)}
+                  placeholder="https://example.com/image.jpg"
+                  className="w-full bg-slate-900 border border-slate-700 rounded-lg py-2.5 px-4 text-xs focus:border-neon-green/50 outline-none"
+                />
+              </div>
             </div>
           </div>
 
