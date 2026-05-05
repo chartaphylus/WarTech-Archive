@@ -198,6 +198,7 @@ function transformUnit(item: any): MilitaryUnit {
     countryCode: item.country_code,
     year: item.year,
     image: item.image_url || '',
+    image_url: item.image_url || '',
     description: item.description || '',
     history: item.history || '',
     featured: item.featured || false,

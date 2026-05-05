@@ -378,6 +378,7 @@ export default function EditUnitPage() {
                     alt="Preview" 
                     className="w-full h-full object-cover" 
                     referrerPolicy="no-referrer"
+                    crossOrigin="anonymous"
                   />
                 ) : (
                   <>

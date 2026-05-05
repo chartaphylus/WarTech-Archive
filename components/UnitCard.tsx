@@ -20,10 +20,11 @@ export default function UnitCard({ unit, index = 0 }: UnitCardProps) {
       <div className="relative h-52 overflow-hidden bg-steel-900">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-          src={unit.image}
+          src={unit.image || (unit as any).image_url}
           alt={unit.name}
           className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
           referrerPolicy="no-referrer"
+          crossOrigin="anonymous"
         />
         {/* Overlay gradient */}
         <div className="absolute inset-0 bg-linear-to-t from-steel-900 via-steel-900/20 to-transparent" />
