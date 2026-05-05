@@ -57,6 +57,7 @@ export default async function UnitDetailPage({ params }: PageProps) {
           src={unit.image}
           alt={unit.name}
           className="absolute inset-0 w-full h-full object-cover"
+          referrerPolicy="no-referrer"
         />
         <div className="absolute inset-0 bg-linear-to-b from-steel-950/20 via-steel-950/40 to-steel-950" />
         <div className="absolute inset-0 bg-linear-to-r from-steel-950/60 to-transparent" />

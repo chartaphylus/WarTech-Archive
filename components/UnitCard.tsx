@@ -23,6 +23,7 @@ export default function UnitCard({ unit, index = 0 }: UnitCardProps) {
           src={unit.image}
           alt={unit.name}
           className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          referrerPolicy="no-referrer"
         />
         {/* Overlay gradient */}
         <div className="absolute inset-0 bg-linear-to-t from-steel-900 via-steel-900/20 to-transparent" />

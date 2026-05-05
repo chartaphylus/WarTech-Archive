@@ -148,7 +148,12 @@ export default function AdminUnitsPage() {
                       <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-lg bg-slate-800 border border-slate-700 overflow-hidden shrink-0">
                           {unit.image_url ? (
-                            <img src={unit.image_url} alt={unit.name} className="w-full h-full object-cover" />
+                            <img 
+                              src={unit.image_url} 
+                              alt={unit.name} 
+                              className="w-full h-full object-cover"
+                              referrerPolicy="no-referrer"
+                            />
                           ) : (
                             <div className="w-full h-full flex items-center justify-center bg-slate-900">
                               <Database className="w-4 h-4 text-slate-600" />

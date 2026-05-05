@@ -373,7 +373,12 @@ export default function EditUnitPage() {
                 className="aspect-video w-full rounded-lg bg-slate-950 border-2 border-dashed border-slate-800 flex flex-col items-center justify-center gap-2 overflow-hidden cursor-pointer hover:border-neon-green/40 transition-all group"
               >
                 {imagePreview ? (
-                  <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
+                  <img 
+                    src={imagePreview} 
+                    alt="Preview" 
+                    className="w-full h-full object-cover" 
+                    referrerPolicy="no-referrer"
+                  />
                 ) : (
                   <>
                     {uploading ? (

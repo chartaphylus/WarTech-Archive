@@ -197,10 +197,10 @@ function transformUnit(item: any): MilitaryUnit {
     country: item.country,
     countryCode: item.country_code,
     year: item.year,
-    image: item.image_url,
-    description: item.description,
-    history: item.history,
-    featured: item.featured,
+    image: item.image_url || '',
+    description: item.description || '',
+    history: item.history || '',
+    featured: item.featured || false,
     specifications: (item.specifications || []).map((s: any) => ({
       label: s.label,
       value: s.value
